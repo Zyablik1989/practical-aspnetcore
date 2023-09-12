@@ -4,6 +4,8 @@ var app = WebApplication.Create();
 
 app.Run(async context =>
 {
+    await context.Response.WriteAsJsonAsync($"Connecting");
+
     var channel = GrpcChannel.ForAddress("https://localhost:5500");
     var client = new Billboard.Board.BoardClient(channel);
     var reply = await client.ShowMessageAsync(new Billboard.MessageRequest
@@ -12,7 +14,7 @@ app.Run(async context =>
         Sender = "Dody Gunawinata"
     });
 
-    var displayDate = new DateTime(reply.DisplayTime);
+    var displayDate = DateTime.MaxValue;
     await context.Response.WriteAsync($"This server sends a gRPC request to a server and get the following result: Received message on {displayDate} from {reply.ReceiveFrom}");
 });
 

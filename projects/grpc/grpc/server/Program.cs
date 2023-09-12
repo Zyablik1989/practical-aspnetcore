@@ -23,7 +23,7 @@ public class BillboardService : Billboard.Board.BoardBase
         var now = DateTime.UtcNow;
         return Task.FromResult(new Billboard.MessageReply
         {
-            DisplayTime = now.Ticks,
+            DisplayTime = long.MaxValue,
             ReceiveFrom = request.Sender
         });
     }
